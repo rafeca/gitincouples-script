@@ -11,4 +11,10 @@ exe git commit -m 'Avoid repetition in move() command'
 
 exe git push origin move-refactor
 
-p Now the Pull Request \#5 is created in github by Bob.
+if [ $mock_gh != 'Y' ]; then
+  p Go to github.com as Bob and create the Pull Request \#5
+  p Do not continue to the next step until finished
+  exit
+fi
+
+p In this step the script simulates that the Pull Request \#5 is created in github by Bob.

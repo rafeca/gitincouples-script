@@ -28,4 +28,14 @@ $ ../gitincouples-script/main.sh
 
 * Follow the instructions
 
+### Pausing/resuming execution
+
+You can `Ctrl+C` any time to stop the execution of the script.
+To resume it from where you left it, execute the script passing the first step to
+execure:
+
+```sh
+$ ../gitincouples-script/main.sh alice 3
+```
+
 * :beer:!

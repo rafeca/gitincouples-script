@@ -1,6 +1,13 @@
 #!/bin/bash
 
-p In this step a new github repository is created by Alice.
+if [ $mock_gh != 'Y' ]; then
+  p Go to github.com as Alice and create a new repository
+  p Do not continue to the next step until the repository is created
+  exit
+fi
+
+
+p In this step the script simulates that Alice creates a new github repository
 
 cd ../github/alice.git
 

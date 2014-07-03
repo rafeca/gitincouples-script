@@ -29,6 +29,12 @@ export -f shh
 
 # Runs the specified step
 function run_step {
+  if [ "$step_name" == "$1" ] && [ "$step_num" == "$2" ]; then
+    ready=1
+  elif [ $ready -eq 0 ]; then
+    return
+  fi
+
   echo ""
   echo -e "\033[31m###############################"
   echo -e "Running step $2 for $1"
@@ -46,8 +52,33 @@ check_command unzip
 check_command git
 check_command wget
 
-# Setup the needed directories
-$(dirname "$0")/setup.sh
+# Setup variables for resuming execution
+ready=0
+step_name=$1
+step_num=$2
+
+if [ $# -ne 2 ]; then
+  # Setup the needed directories
+  $(dirname "$0")/setup.sh
+  ready=1
+fi
+
+p Do you want to run everything locally?
+p If you answer "Y", you won\'t need to navigate manually to GiHub
+read mock_gh
+export mock_gh
+
+if [ $mock_gh != 'Y' ]; then
+  p Enter Alice github repository URL:
+  read gh_alice_url
+  p Enter Bob github repository URL:
+  read gh_bob_url
+else
+  gh_bob_url='../github/bob.git'
+  gh_alice_url='../github/alice.git'
+fi
+export gh_bob_url
+export gh_alice_url
 
 # Run all the steps
 run_step alice 1
